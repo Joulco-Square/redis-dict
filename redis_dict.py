@@ -33,7 +33,9 @@ class RedisDict:
         return '{}:{}'.format(self.namespace, str(key))
 
     def _store(self, key, value, set_type=None):
-        store_type = set_type if set_type is not None else type(value).__name__
+        store_type = set_type if set_type is not None else type(value).__name__        
+        if store_type == dict.__name__:
+            value = json.dumps(value)
         store_value = '{}:{}'.format(store_type, value)
         self.redis.set(self._format_key(key), store_value, ex=self.expire)
 
