@@ -12,6 +12,7 @@ SENTINEL = object()
 class RedisDict:
     trans = {
         'json': json.loads,
+        'dict': json.loads,
         type('').__name__: str,
         type(1).__name__: int,
         type(0.1).__name__: float,
